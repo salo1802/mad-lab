@@ -1,31 +1,17 @@
 class Compuesto {
 
-    constructor(listaElementos, suciedad, posx, posy){
+    constructor(listaElementos,listaDeFormulas, suciedad, posx, posy){
         this.posx = posx;
         this.posy = posy;
         this.listaElementos = [listaElementos]; 
         this.suciedad = suciedad;
         this.formula = "";
-        this.crearListaDeFormulas();
+        this.listaDeFormulas = [listaDeFormulas];
         this.validarFormula();
-}
+        
 
-
-crearListaDeFormulas(){
-    this.listaDeFormulas=[2];
-
-    this.listaDeFormulas[0] = {
-        nombre: "agua",
-        formula: "H,H,O"
     }
 
-   this.listaDeFormulas[1] = {
-        nombre: "sal de mesa",
-        formula: "Na,Cl"
-    }
-
-  
-}
 
 validarFormula(){
        this.nombre = "Compuesto Peligroso";
@@ -64,6 +50,8 @@ getPosY(){
 
 setPosX(posX){
 this.posx = posX;}
+
+
 setPosY(posY){
     this.posY = posY;
 }
