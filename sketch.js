@@ -13,7 +13,7 @@ function setup() {
   rectMode(CENTER);
   textAlign(CENTER)
   prueba3 = new Logica();
-  let lista = ["Na","H","C","O","O","O"]
+  let lista = ["Na,Cl"]
   let prueba2 =  new Compuesto(lista, false, 1,1);
   console.log(prueba2.getNombre())
   prueba = new Profesor();

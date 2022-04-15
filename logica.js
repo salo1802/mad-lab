@@ -4,32 +4,42 @@ class Logica {
 
 constructor(){
   this.level = 0;
+  this.suciedad = false;
   this.basureroposx = 540;
   this.basureroposy = 230;
+  this.esponjaposx = 840;
+  this.esponjaposy = 130;
+  this.compuestoposx = 700;
+  this.compuestoposy = 230;
+  this.mixposx = 840;
+  this.mixposy = 230;
   this.listaDeElementos = [];
+  this.listaDeSimbolos = [];
   this.listaDeFormulas = []
   this.casilla1 = {
       posx: 600,
-      posy: 260,
+      posy: 360,
       lista: []
   }
   this.casilla2 = {
     posx: 660,
-    posy: 260,
+    posy: 360,
     lista: []
   }
   this.casilla3 = {
     posx: 720,
-    posy: 260,
+    posy: 360,
     lista: []
   }
   this.casilla4 = {
     posx: 780,
-    posy: 260,
+    posy: 360,
     lista: []
   }
   this.elementoSeleccionado;
-  this.crearListaDeFormulas();
+  this.compuesto;
+  this.profesor = new Profesor();
+  this.cantidadDeComPeligrosos = 0;
   this.crearElementos();
   
 
@@ -38,70 +48,11 @@ constructor(){
 }
 
 
-crearListaDeFormulas(){
-    
-
-    this.listaDeFormulas[0] = {
-        nombre: "Agua",
-        formula: "H,H,O"
-    }
-
-   this.listaDeFormulas[1] = {
-        nombre: "Sal de mesa",
-        formula: "Na,Cl"
-    }
-
-    this.listaDeFormulas[2] = {
-        nombre: "Óxido de hierro",
-        formula: "Fe,O"
-    }
-
-    this.listaDeFormulas[3] = {
-        nombre: "Dióxido de carbono",
-        formula: "C,O,O"
-    }
-
-    this.listaDeFormulas[4] = {
-        nombre: "Carbonato de calcio",
-        formula: "Ca,C,O,O,O"
-    }
-
-    this.listaDeFormulas[5] = {
-        nombre: "Sulfato de cobre",
-        formula: "Cu,S,O,O,O,O"
-    }
-
-    this.listaDeFormulas[6] = {
-        nombre: "Permanganato de potasio",
-        formula: "K,Mn,O,O,O,O"
-    }
-
-    this.listaDeFormulas[7] = {
-        nombre: "Bicarbonato de sodio",
-        formula: "Na,H,C,O,O,O"
-    }
-
-    this.listaDeFormulas[8] = {
-        nombre: "Etanol",
-        formula: "C,C,H,H,H,H,H,O,H"
-    }
-
-    this.listaDeFormulas[9] = {
-        nombre: "Ácido acetilsalicílico",
-        formula: "C,C,C,C,C,C,C,C,C,H,H,H,H,H,H,H,H,O,O,O,O"
-    }
-
-    
-
-    
-
-  
-}
 
 logicDraw(){
     this.pintarcoponentes();
     this.pintarCasillas();
-    if(this.elementoSeleccionado != null){ this.elementoSeleccionado.pintarElemento();}
+    if(this.elementoSeleccionado != null && this.elementoSeleccionado != this.compuesto){ this.elementoSeleccionado.pintarElemento();}
 
 }
 
@@ -130,7 +81,24 @@ pintarcoponentes(){
     fill(250,0,0)
     rect(this.basureroposx,this.basureroposy,50,50);
 
+    //pintar esponja
+    fill(0,0,100)
+    rect(this.esponjaposx,this.esponjaposy,50,50);
 
+    //pintar boton
+
+    fill(0,100,0)
+    rect(this.mixposx,this.mixposy,50,50);
+
+
+
+    //pintar libro
+
+
+    //pintar compuesto
+    if(this.compuesto != undefined){
+        this.compuesto.pintarCompuesto();
+    }
 }
 
 
@@ -145,7 +113,23 @@ logicMousePressed(mousex,mousey){
         }
     })
     this.agarrarElementosDeCasillas(this.casilla1,mousex,mousey);
+    this.agarrarElementosDeCasillas(this.casilla2,mousex,mousey);
+    this.agarrarElementosDeCasillas(this.casilla3,mousex,mousey);
+    this.agarrarElementosDeCasillas(this.casilla4,mousex,mousey);
+    this.limpiar(mousex,mousey);
     console.log(this.casilla1.lista)
+
+    if(mousex>this.mixposx-25 && mousex < this.mixposx+25 
+        && mousey > this.mixposy - 25 && mousey < this.mixposy + 25){
+    this.crearCompuesto();}
+
+    //agarrar el compuesto
+if(this.compuesto != null || this.compuesto != undefined){
+    if(mousex > this.compuesto.getPosX() -25 && mousex <this.compuesto.getPosX() +25 
+        && mousey > this.compuesto.getPosY() -25 && mousey <this.compuesto.getPosY() +25 ){
+            this.elementoSeleccionado = this.compuesto;
+        }}
+
 }
 
 logicMouseDragged(mousex,mousey){
@@ -154,24 +138,32 @@ logicMouseDragged(mousex,mousey){
     this.elementoSeleccionado.setPosY(mousey);
    }
    
+    
   
 }
 
 logicMouseReleased(){
+    if(this.elementoSeleccionado != null){
     this.validarCasillas(this.elementoSeleccionado,this.casilla1)
     this.validarCasillas(this.elementoSeleccionado,this.casilla2)
     this.validarCasillas(this.elementoSeleccionado,this.casilla3)
     this.validarCasillas(this.elementoSeleccionado,this.casilla4)
-    this.elementoSeleccionado = null;
+    this.elementoSeleccionado = null;}
+    if(this.compuesto != undefined || this.compuesto != null){
+        this.validarCompuesto();
+    }
 
 }
 
-crearTablas(){
 
-}
 
 pintarCasillas(){
-    fill(100);
+    if(this.suciedad==true){
+        fill(0,100,0)
+    }else{
+        fill(100);
+    }
+    
     if(this.casilla1.lista[0] == undefined){
         rect(this.casilla1.posx,this.casilla1.posy,50,50);
     }else{
@@ -224,9 +216,50 @@ agarrarElementosDeCasillas(casilla,mousex,mousey){
            casilla.lista.pop()
         }
 
-    }
-        
-    
+    }  
 }
 
+limpiar(mousex,mousey){
+    if(mousex>this.esponjaposx-25 && mousex < this.esponjaposx+25 
+        && mousey > this.esponjaposy - 25 && mousey < this.esponjaposy + 25){
+            this.suciedad = false;
+        }
+}
+
+crearCompuesto(){
+    this.casilla1.lista.forEach(elemento => {
+        this.listaDeSimbolos.push(elemento.getSimbolo());
+    })
+    this.casilla2.lista.forEach(elemento => {
+        this.listaDeSimbolos.push(elemento.getSimbolo());
+    })
+    this.casilla3.lista.forEach(elemento => {
+        this.listaDeSimbolos.push(elemento.getSimbolo());
+    })
+    this.casilla4.lista.forEach(elemento => {
+        this.listaDeSimbolos.push(elemento.getSimbolo());
+    })
+
+    console.log(this.listaDeSimbolos)
+    this.compuesto = new Compuesto(this.listaDeSimbolos,this.suciedad,this.compuestoposx,this.compuestoposy);
+
+    this.casilla1.lista = [];
+    this.casilla2.lista = [];
+    this.casilla3.lista = [];
+    this.casilla4.lista = [];
+    this.listaDeSimbolos = [];
+    this.suciedad = true;
+
+    console.log(this.compuesto);
+    console.log(this.compuesto.getFormula())
+}
+
+
+validarCompuesto(){
+    if(this.compuesto.getPosX()>this.basureroposx-25 && this.compuesto.getPosX()<this.basureroposx+25
+    &&this.compuesto.getPosY()>this.basureroposy-25&&this.compuesto.getPosY()<this.basureroposy+25){
+       
+        this.compuesto = null;
+    }
+}
 }

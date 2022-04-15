@@ -12,6 +12,7 @@ class Elemento{
         // fill(this.color)
         rect(this.posx,this.posy,50,50)
         fill(0)
+        textSize(16);
         text(this.simbolo,this.posx,this.posy + 50);
        
     }
