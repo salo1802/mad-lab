@@ -10,23 +10,24 @@ class Profesor {
         this.parteDelTutorial = 0;
         this.tutorial;
         this.img = loadImage('./data/prueba.png');
-        this.frases = [];
+        this.frases;
 
     }
     pintarProfesor(tutorial){
+        
         fill(0);
         this.img.resize(300,400);
         image(this.img, this.posx,this.posy)
         this.tutorial= tutorial;
         textSize(16);
         this.pintarFrases();
-        
+       
 
     }
     
     Crearfrases(){
        this.frasesTurorial = [13];
-       this.frases = [3];
+       this.frases;
 
     this.frasesTurorial[0] = ("Hola! bienvenido a Mad-Lab,"+"\n" + "soy el profesor L."+"\n"+"estoy aqui para guiarte"
      + "\n" + "y explicarte tus labores")
@@ -58,9 +59,9 @@ class Profesor {
 
     this.frasesTurorial[12] = ("Estas listx?");
 
-    this.frases[0] = "Bien Hecho!\n" + "Vamos con el siguiente nivel";
-    this.frases[1] = "Esto no es lo que te pedi \n" + "dejalo en el basurero e intenta de nuevo";
-    this.frases[2] = "CREASTE UN COMPUESTO PELIGROSO!!!" + "\n" + "DESASTE DE ÉL RÁPIDO" + "\n" + "REVISA BIEN LA FORMULA\n" +"Y QUE TU ESPACO DE TRABAJO NO ESTE SUCIO"
+    
+    
+    
 
 
 }
@@ -79,13 +80,22 @@ pintarFrases(){
     if(this.tutorial==true){
         text(this.frasesTurorial[this.parteDelTutorial],this.posx+50, 100);
     }
+    if(this.tutorial==false){
+        text(this.frases,this.posx+50, 100);
+    }
     
 }
 
 
 validarNivel(compuesto,nivel){
     if(compuesto.getNombre() == nivel ){
-        
+        this.frases = "Bien Hecho!\n" + "Vamos con el\n siguiente nivel";
+    }else{
+        if(compuesto.getNombre() == "Compuesto Peligroso"){
+    this.frases = "CREASTE UN\nCOMPUESTO PELIGROSO!!!" + "\n" + "DESASTE DE ÉL RÁPIDO" + "\n" + "REVISA BIEN LA FORMULA\n" +"Y QUE TU ESPACIO\n DE TRABAJO NO ESTE SUCIO"
+        }else{
+            this.frases = "Esto no es\nlo que te pedi \n" + "dejalo en el basurero\n e intenta de nuevo";
+        }
     }
 }
 

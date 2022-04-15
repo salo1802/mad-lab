@@ -41,6 +41,9 @@ constructor(){
   this.profesor = new Profesor();
   this.cantidadDeComPeligrosos = 0;
   this.crearElementos();
+  this.compuestoPedido = "Agua";
+  this.nivel = 0;
+  this.tutorial;
   
 
 
@@ -50,8 +53,16 @@ constructor(){
 
 
 logicDraw(){
+    if(this.nivel == 0){
+        this.tutorial = true;
+        if(this.profesor.getParteDelTutorial()>13){
+            this.nivel = 1;
+    }}else{
+        this.tutorial = false;
+    }
     this.pintarcoponentes();
     this.pintarCasillas();
+    this.profesor.pintarProfesor(this.tutorial);
     if(this.elementoSeleccionado != null && this.elementoSeleccionado != this.compuesto){ this.elementoSeleccionado.pintarElemento();}
 
 }
@@ -102,9 +113,7 @@ pintarcoponentes(){
 }
 
 
-borrarElemento(elemento){
-    
-}
+
 
 logicMousePressed(mousex,mousey){
     this.listaDeElementos.forEach(elemento =>{
@@ -130,13 +139,19 @@ if(this.compuesto != null || this.compuesto != undefined){
             this.elementoSeleccionado = this.compuesto;
         }}
 
+        //avanzar el turtorial
+
+    this.profesor.siguienteFrase();
+
 }
 
 logicMouseDragged(mousex,mousey){
+
+    if(this.tutorial == false){
    if(this.elementoSeleccionado != null){
     this.elementoSeleccionado.setPosX(mousex);
     this.elementoSeleccionado.setPosY(mousey);
-   }
+   }}
    
     
   
@@ -250,8 +265,9 @@ crearCompuesto(){
     this.listaDeSimbolos = [];
     this.suciedad = true;
 
-    console.log(this.compuesto);
-    console.log(this.compuesto.getFormula())
+    if(this.compuesto.getNombre()=="Compuesto Peligroso"){
+        this.cantidadDeComPeligrosos++;
+    }
 }
 
 
@@ -261,5 +277,11 @@ validarCompuesto(){
        
         this.compuesto = null;
     }
+
+    if(this.compuesto.getPosX()> 20 && this.compuesto.getPosX()< 320
+    &&this.compuesto.getPosY()>370&&this.compuesto.getPosY()<670){
+        this.profesor.validarNivel(this.compuesto,this.compuestoPedido);
+}
+
 }
 }

@@ -13,7 +13,7 @@ function setup() {
   rectMode(CENTER);
   textAlign(CENTER)
   prueba3 = new Logica();
-  let lista = ["Na,Cl"]
+  let lista = ["Na","Cl"]
   let prueba2 =  new Compuesto(lista, false, 1,1);
   console.log(prueba2.getNombre())
   prueba = new Profesor();
@@ -27,7 +27,7 @@ function draw() {
   rect(170,520,300,400);
   prueba3.logicDraw();
 
-  prueba.pintarProfesor(true);
+  
 }
 
 function mousePressed(){
