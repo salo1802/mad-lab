@@ -4,63 +4,108 @@ class Elemento{
         this.posx = posx;
         this.posy = posy;
         this.simbolo = simbolo;
-        this.color;
-        this.seleccionarElemento();
+        this.img;
+        //this.seleccionarElemento();
+        switch (this.simbolo){
+            case "H":
+                this.img = loadImage('./data/h.png');
+                break;
+
+            case "O":
+                this.img = loadImage('./data/o.png');
+                break;
+
+            case "Na":
+                this.img = loadImage('./data/na.png');
+                break;
+
+            case "Cl":
+                this.img = loadImage('./data/cl.png');
+                break;
+
+            case "Fe":
+                this.img = loadImage('./data/fe.png');
+                break;
+
+            case "Ca":
+                this.img = loadImage('./data/ca.png');
+                break;
+
+            case "S":
+                this.img = loadImage('./data/s.png');
+                break;
+            
+             case "K":
+                this.img = loadImage('./data/k.png');
+                 break;
+
+            case "Mn":
+                this.img = loadImage('./data/mn.png');
+                break;
+
+                case "C":
+                    this.img = loadImage('./data/c.png');
+                    break;
+
+                 case "Cu":
+                    this.img = loadImage('./data/cu.png');
+                    break;}
     }
 
     pintarElemento(){
         // fill(this.color)
-        rect(this.posx,this.posy,50,50)
-        fill(0)
+        this.img.resize(60,60)
+        image(this.img,this.posx,this.posy);
+        fill(250)
         textSize(16);
-        text(this.simbolo,this.posx,this.posy + 50);
+        text(this.simbolo,this.posx,this.posy + 60);
        
     }
 
     seleccionarElemento(){
         switch (this.simbolo){
             case "H":
-                //this.color = 233,0,200
+                this.img = loadImage('./data/h.png');
                 break;
 
             case "O":
-                //this.color = 0,0,200
+                this.img = loadImage('./data/o.png');
                 break;
 
             case "Na":
-              // this.color = 233,0,0
+                this.img = loadImage('./data/na.png');
                 break;
 
             case "Cl":
-               // this.color = 100,0,100
+                this.img = loadImage('./data/cl.png');
                 break;
 
             case "Fe":
-               // this.color = 100,100,100
+                this.img = loadImage('./data/fe.png');
                 break;
 
             case "Ca":
-               // this.color = 133,200,200
+                this.img = loadImage('./data/ca.png');
                 break;
 
             case "S":
-               // this.color = 0,0,200
+                this.img = loadImage('./data/s.png');
                 break;
             
              case "K":
-               // this.color = 100,200,200
+                this.img = loadImage('./data/k.png');
                  break;
 
             case "Mn":
-                //this.color = 250,250,250
+                this.img = loadImage('./data/mn.png');
                 break;
 
                 case "C":
-                // this.color = 0,0,0
+                    this.img = loadImage('./data/c.png');
                     break;
 
                  case "Cu":
-               // this.color = 184,115,51
+                    this.img = loadImage('./data/cu.png');
                     break;
             
          }

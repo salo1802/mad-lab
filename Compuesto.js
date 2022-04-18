@@ -7,6 +7,7 @@ class Compuesto {
         this.suciedad = suciedad;
         this.nombre;
         this.formula = "";
+        this.imagen;
         this.crearListaDeFormulas();
         this.validarFormula();
         
@@ -20,52 +21,62 @@ class Compuesto {
     
         this.listaDeFormulas[0] = {
             nombre: "Agua",
-            formula: "H,H,O"
+            formula: "H,H,O",
+            img: "./data/agua.png"
         }
     
        this.listaDeFormulas[1] = {
-            nombre: "Sal de mesa",
-            formula: "Na,Cl"
+            nombre: "Sal\nde mesa",
+            formula: "Na,Cl",
+            img: "./data/sal.png"
         }
     
         this.listaDeFormulas[2] = {
-            nombre: "Óxido de hierro",
-            formula: "Fe,O"
+            nombre: "Óxido\nde hierro",
+            formula: "Fe,O",
+            img: "./data/oxido.png"
         }
     
         this.listaDeFormulas[3] = {
-            nombre: "Dióxido de carbono",
-            formula: "C,O,O"
+            nombre: "Dióxido\nde carbono",
+            formula: "C,O,O",
+            img: "./data/dioxido.png"
         }
     
         this.listaDeFormulas[4] = {
-            nombre: "Carbonato de calcio",
-            formula: "Ca,C,O,O,O"
+            nombre: "Carbonato\nde calcio",
+            formula: "Ca,C,O,O,O",
+            img: "./data/carbonato.png"
         }
     
         this.listaDeFormulas[5] = {
-            nombre: "Sulfato de cobre",
-            formula: "Cu,S,O,O,O,O"
+            nombre: "Sulfato\nde cobre",
+            formula: "Cu,S,O,O,O,O",
+            img: "./data/sulfato.png"
         }
     
         this.listaDeFormulas[6] = {
-            nombre: "Permanganato de potasio",
-            formula: "K,Mn,O,O,O,O"
+            nombre: "Permanganato\nde potasio",
+            formula: "K,Mn,O,O,O,O",
+            img: "./data/permanganato.png"
         }
     
         this.listaDeFormulas[7] = {
-            nombre: "Bicarbonato de sodio",
-            formula: "Na,H,C,O,O,O"
+            nombre: "Bicarbonato\nde sodio",
+            formula: "Na,H,C,O,O,O",
+            img: "./data/bicarbonato.png"
         }
     
         this.listaDeFormulas[8] = {
             nombre: "Etanol",
-            formula: "C,C,H,H,H,H,H,O,H"
+            formula: "C,C,H,H,H,H,H,O,H",
+            img: "./data/etanol.png"
         }
     
         this.listaDeFormulas[9] = {
-            nombre: "Ácido acetilsalicílico",
-            formula: "C,C,C,C,C,C,C,C,C,H,H,H,H,H,H,H,H,O,O,O,O"
+            nombre: "Ácido\nacetilsalicílico",
+            formula: "C,C,C,C,C,C,C,C,C,H,H,H,H,H,H,H,H,O,O,O,O",
+            img: "./data/aspirina.png"
         }
     
         
@@ -78,7 +89,8 @@ class Compuesto {
     
 
 validarFormula(){
-       this.nombre = "Compuesto Peligroso";
+       this.nombre = "Compuesto\nPeligroso";
+       this.imagen = loadImage("./data/peligro.png")
         this.listaElementos.forEach(element => {
             this.formula = `${this.formula}${element}`
         });
@@ -86,18 +98,22 @@ if(this.suciedad==false){
     this.listaDeFormulas.forEach(f =>{
         if(this.formula==f.formula){
             this.nombre = f.nombre;
+            this.imagen = loadImage(f.img) ;
         }
     });
     
 }else{
-    this.nombre = "Compuesto Peligroso"
+    this.nombre = "Compuesto\nPeligroso"
+    this.imagen = loadImage("./data/peligro.png")
 }
 
 }
 
 pintarCompuesto(){
-    rect(this.posx,this.posy,50,50);
+    this.imagen.resize(60,60);
+    image(this.imagen,this.posx,this.posy)
     textSize(10);
+    fill(255);
     text(this.nombre,this.posx,this.posy + 50);
 }
 

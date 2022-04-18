@@ -3,25 +3,58 @@ class Profesor {
     constructor(){
         this.posx = 170;
         this.posy = 520;
-        this.hablar = false;
         this.frasesTurorial = [];
-        this.buencompueto;
+        this.buencompuesto;
         this.Crearfrases();
         this.parteDelTutorial = 0;
         this.tutorial;
-        this.img = loadImage('./data/prueba.png');
+        this.img = loadImage('./data/Profesor.png');
+        this.imgS = loadImage('./data/Profesor Sorprendido.png')
+        this.imgB = loadImage("./data/Profesor Correcto.png")
+        this.sombra = [13];
         this.frases;
+        this.globo = loadImage("./data/nube.png")
+             
+    this.sombra[0] = loadImage("./data/tutorial1.png");
+    this.sombra[1] = loadImage("./data/tutorial1.png");
+    this.sombra[2] = loadImage("./data/tutorial2.png");
+    this.sombra[3] = loadImage("./data/tutorial3.png");
+    this.sombra[4] = loadImage("./data/tutorial4.png");
+    this.sombra[5] = loadImage("./data/tutorial5.png");
+    this.sombra[6] = loadImage("./data/tutorial6.png");
+    this.sombra[7] = loadImage("./data/tutorial7.png");
+    this.sombra[8] = loadImage("./data/tutorial8.png");
+    this.sombra[9] = loadImage("./data/tutorial9.png");
+    this.sombra[10] = loadImage("./data/tutorial10.png");
+    this.sombra[11] = loadImage("./data/tutorial1.png");
+    this.sombra[12] = loadImage("./data/tutorial1.png");
 
     }
     pintarProfesor(tutorial){
         
         fill(0);
         this.img.resize(300,400);
-        image(this.img, this.posx,this.posy)
+        if(this.parteDelTutorial<12){
+            image(this.sombra[this.parteDelTutorial],640,360)
+        }
+        
+        this.globo.resize(416,252)
+        image(this.globo,220,150)
+        if(this.buencompuesto == false){
+            image(this.imgS,this.posx,this.posy);
+        }else{
+            if(this.buencompuesto ==true){
+                image(this.imgB,this.posx,this.posy);
+            }else{
+                image(this.img, this.posx,this.posy)
+            }
+            
+        }
+        
         this.tutorial= tutorial;
         textSize(16);
         this.pintarFrases();
-       
+  
 
     }
     
@@ -29,7 +62,7 @@ class Profesor {
        this.frasesTurorial = [13];
        this.frases;
 
-    this.frasesTurorial[0] = ("Hola! bienvenido a Mad-Lab,"+"\n" + "soy el profesor L."+"\n"+"estoy aqui para guiarte"
+    this.frasesTurorial[0] = ("Hola! bienvenido\na Mad-Lab,"+"\n" + "soy el profesor L."+"\n"+"estoy aqui para guiarte"
      + "\n" + "y explicarte tus labores")
     
 
@@ -50,7 +83,7 @@ class Profesor {
 
     this.frasesTurorial[8] = ("Y con la esponja"+"\n"+"puedes limpiar tu" + "\n" + "espacio al terminar" +"\n"+ "de mezclar");
   
-    this.frasesTurorial[9] = ("Si tienes un"+"\n"+"compuesto peligroso" + "\n" + "debes elminarlo");
+    this.frasesTurorial[9] = ("Si tienes un"+"\n"+"compuesto peligroso" + "\n" + "debes eliminarlo");
 
     this.frasesTurorial[10] = ("Puedes consultar"+"\n"+"el libro por" + "\n" + "pista pero se te" +"\n"+ "descontaran puntos"
     + "\n" + "cada que lo uses");
@@ -59,7 +92,6 @@ class Profesor {
 
     this.frasesTurorial[12] = ("Estas listx?");
 
-    
     
     
 
@@ -88,26 +120,43 @@ pintarFrases(){
 
 
 validarNivel(compuesto,nivel){
+    
     if(compuesto.getNombre() == nivel ){
+        this.buencompuesto = true;
         this.frases = "Bien Hecho!\n" + "Vamos con el\n siguiente nivel";
+        
     }else{
-        if(compuesto.getNombre() == "Compuesto Peligroso"){
+        if(compuesto.getNombre() == "Compuesto\nPeligroso"){
     this.frases = "CREASTE UN\nCOMPUESTO PELIGROSO!!!" + "\n" + "DESASTE DE ÉL RÁPIDO" + "\n" + "REVISA BIEN LA FORMULA\n" +"Y QUE TU ESPACIO\n DE TRABAJO NO ESTE SUCIO"
+   
         }else{
             this.frases = "Esto no es\nlo que te pedi \n" + "dejalo en el basurero\n e intenta de nuevo";
+            
         }
+        this.buencompuesto = false;
     }
+    
 }
 
-getHablar(){
-    return this.hablar;
-}
+
 
 getParteDelTutorial(){
     return this.parteDelTutorial;
 }
 
+getFrases(){
+    return this.frases;
+}
 
+getBuenCompuesto(){
+return this.buencompuesto;
+}
 
+setCompuesto(boolean){
+    this.buencompuesto = boolean;
+}
 
+setFrases(frase){
+    this.frases = frase;
+}
 }
