@@ -51,7 +51,7 @@ constructor(){
   this.cantidadDeComPeligrosos = 0;
   this.crearElementos();
   this.compuestoPedido;
-  this.nivel = -1;
+  this.nivel = -2;
   this.consultas = 0;
   this.tutorial;
   this.libroAbierto = false;
@@ -67,28 +67,28 @@ constructor(){
 logicDraw(){
 
     //leyes
-    if(this.nivel == -1){
+    if(this.nivel == -2){
         this.tutorial = true;
         if(this.profesor.getParteDelTutorial()>12){
-            this.nivel = 0;
+            this.nivel = -1;
     }}else{
         
         this.tutorial = false;
         if(this.nivel == 0){
             this.profesor.setFrases("Empezemos con\nalgo sencillo\ntrata de hacer\nagua(H2O)");
+        }if(this.nivel == -1){
+            this.profesor.setFrases("Aqui estan las\nformulas de los\ncompuestos que\napareceran");
         }else{
             this.profesor.setFrases(this.profesor.getFrases());
         }
     }
 
-    //finalizar
+    //terminar juego 
 
-    if(this.nivel==10){
+    if(this.nivel ==10){
         this.calcularPuntaje();
-        console.log(this.puntaje)
-        this.nivel = 11;
+        this.nivel=11;
     }
-
     
     this.crearNiveles();
 
@@ -112,7 +112,7 @@ logicDraw(){
         
     }
     
-    if(this.tutorial ==false){
+    if(this.tutorial ==false&&this.nivel>-1){
         this.nombrePantalla = this.compuestoPedido.replace('\n'," ");
         fill(255);
         textSize(14);
@@ -169,9 +169,10 @@ pintarcoponentes(){
 
 
 logicMousePressed(mousex,mousey){
-console.log("x"+mousex)
-console.log("y"+mousey)
     if(this.tutorial==false){
+        if(this.nivel == -1){
+            this.libroAbierto = true; 
+        }
         if(this.libroAbierto == false){
             this.listaDeElementos.forEach(elemento =>{
                 if(elemento.seleccionarElemento(mousex,mousey)==true){
@@ -183,7 +184,6 @@ console.log("y"+mousey)
             this.agarrarElementosDeCasillas(this.casilla3,mousex,mousey);
             this.agarrarElementosDeCasillas(this.casilla4,mousex,mousey);
             this.limpiar(mousex,mousey);
-            console.log(this.casilla1.lista)
         
             if(mousex>this.mixposx-25 && mousex < this.mixposx+25 
                 && mousey > this.mixposy - 25 && mousey < this.mixposy + 25){
@@ -213,6 +213,7 @@ console.log("y"+mousey)
             //cerrar libro
             if(mousex>920 && mousex<940 && mousey>200 && mousey<220){
                 this.libroAbierto =false;
+                if(this.nivel == -1){this.nivel=0;}
             }
             
 
@@ -228,6 +229,7 @@ console.log("y"+mousey)
 
     this.profesor.siguienteFrase();
 
+    
     
 
 }
@@ -380,7 +382,7 @@ crearCompuesto(){
         this.listaDeSimbolos.push(elemento.getSimbolo());
     })
 
-    console.log(this.listaDeSimbolos)
+    
     this.compuesto = new Compuesto(this.listaDeSimbolos,this.suciedad,this.compuestoposx,this.compuestoposy);
 
     this.casilla1.lista = [];
@@ -424,27 +426,31 @@ validarCompuesto(){
 
 }
 
+
 calcularPuntaje(){
     for(let i = 1; i < this.nivel;i++){
         if(i<4){
             this.puntaje += 6;
-            console.log("primera fase: "+this.puntaje);
         }if(i>3&&i<7){
             this.puntaje += 10;
-            console.log("segunda fase: "+this.puntaje);
         }if(i >6){
             this.puntaje += 15;
-            console.log("tercera fase: "+this.puntaje);
         }
     }
 
     if(this.nivel>9){
         this.puntaje += 7;
-        console.log("cuarta fase: "+this.puntaje)
     }
 
     this.puntaje = this.puntaje-(this.consultas+((this.cantidadDeComPeligrosos-1)*15));
 }
 
 
+getNivel(){
+    return this.nivel;
+}
+
+getPuntaje(){
+    return this.puntaje;
+}
 }
