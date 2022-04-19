@@ -62,7 +62,8 @@ class Profesor {
        this.frasesTurorial = [13];
        this.frases;
 
-    this.frasesTurorial[0] = ("Hola! bienvenido\na Mad-Lab,"+"\n" + "soy el profesor L."+"\n"+"estoy aqui para guiarte"
+    this.frasesTurorial[0] = ("Hola! bienvenido a"+"\n" + "Mad-Lab,soy el profesor"+"\n"+
+     "Y este es mi perro Argo,"+"\n"+"estoy aqui para guiarte"
      + "\n" + "y explicarte tus labores")
     
 

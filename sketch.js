@@ -26,6 +26,8 @@ function setup() {
   app.rectMode(CENTER);
   app.textAlign(CENTER);
   app.textFont(inconsolata);
+  pantalla1 = app.loadImage("./data/inicio.png");
+  pantalla3 = app.loadImage("./data/InterfazFinalizar.png");
   pantalla2 =  new Logica();
 
 }
@@ -35,8 +37,8 @@ function draw() {
   app.background(220);
   switch(pantalla){
     case 1:
-      app.textSize(64);
-      app.text("Start",640,370);
+      app.pantalla1.resize(1280,720);
+      app.image(pantalla1,640,370)
       break;
     case 2:
       pantalla2.logicDraw();
@@ -46,9 +48,11 @@ function draw() {
       }
       break;
     case 3:
-      app.textSize(32);
+      app.textSize(22);
+      app.pantalla3.resize(1280,720);
+      app.image(pantalla3,640,370);
       app.fill(0);
-      app.text("Game Over\n" + "Puntaje: "+puntaje,640,370)
+      app.text(puntaje,640,355)
     break;
   }
   
@@ -61,7 +65,7 @@ function mousePressed(){
   switch(pantalla){
     case 1:
       console.log(mouseX + "," + mouseY)
-    if(app.mouseX>470 && app.mouseX<780 && app.mouseY >300 && app.mouseY < 360){
+    if(app.mouseX>445 && app.mouseX<835 && app.mouseY >442 && app.mouseY < 558){
       pantalla = 2;
     }
       break;
@@ -69,7 +73,10 @@ function mousePressed(){
       pantalla2.logicMousePressed(app.mouseX,app.mouseY);
       break;
     case 3:
-
+      if(app.mouseX > 526 && app.mouseX<754 && app.mouseY >478 && app.mouseY < 552){
+        //actividad.finish() 
+        console.log("Termino")
+      }
     break;
   }
   
@@ -114,5 +121,5 @@ function mouseReleased(){
 //actividad.addResult([{id:NameCarrera, value:puntaje}]); 
 //actividad.addState("parametro", value); // guarda variables extras que deseen analizar para la interaccion
 //actividad.addState("pantalla1", pantalla1Time); // ejemplo
-//actividad.finish() // se pone donde acaba la interaccion, esta salta directamente a la pantalla siguiente, 
+
 //para que tengan en cuenta por si tienen una pantalla final que deseen que se muestre durante cierto tiempo

@@ -194,6 +194,7 @@ pintarcoponentes(){
     }
 
     //pintar reloj 
+    this.contador.resize(144,71)
     image(this.contador,1175,40)
     fill(6,78,100);
     textSize(24);
@@ -503,6 +504,8 @@ calcularPuntajePorTiempo(){
     }
 
     this.puntaje = this.puntaje-(this.consultas+((this.cantidadDeComPeligrosos-1)*15));
+
+    if(this.puntaje <0){this.puntaje=0;}
 }
 
 
