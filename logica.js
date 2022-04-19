@@ -56,17 +56,22 @@ constructor(){
   this.tutorial;
   this.libroAbierto = false;
   this.nombrePantalla;
+  frameRate(30);
+  this.sec = 0;
+  this.min = 5;
+  this.timer;
+  this.contador = loadImage("./data/Contador.png")
   
-
-
 
 }
 
 
 
 logicDraw(){
-
+    
     //leyes
+
+    
     if(this.nivel == -2){
         this.tutorial = true;
         if(this.profesor.getParteDelTutorial()>12){
@@ -82,6 +87,30 @@ logicDraw(){
             this.profesor.setFrases(this.profesor.getFrases());
         }
     }
+    
+    //tiempo
+    if(this.nivel>0 && this.nivel < 11){
+        if(frameCount%30==0){
+        
+            this.sec--;
+        }
+    
+        if(this.sec==0){
+            this.min--;
+            this.sec = 59;
+        }
+        
+        if(this.sec<10){
+            this.timer = `${this.min}:0${this.sec}`
+        }else{
+            this.timer = `${this.min}:${this.sec}`
+        }
+    }
+    if(this.min==0 && this.sec == 1){
+        this.calcularPuntajePorTiempo();
+        this.nivel = 11;
+    }
+    
 
     //terminar juego 
 
@@ -163,7 +192,20 @@ pintarcoponentes(){
     if(this.compuesto != undefined){
         this.compuesto.pintarCompuesto();
     }
+
+    //pintar reloj 
+    image(this.contador,1175,40)
+    fill(6,78,100);
+    textSize(24);
+    if(this.nivel>0){
+        text(""+this.timer, 1175, 60);
+    }else{
+        text("5:00", 1175, 60);
+    }
+    
 }
+
+
 
 
 
@@ -213,7 +255,7 @@ logicMousePressed(mousex,mousey){
             //cerrar libro
             if(mousex>920 && mousex<940 && mousey>200 && mousey<220){
                 this.libroAbierto =false;
-                if(this.nivel == -1){this.nivel=0;}
+                if(this.nivel == -1){ this.nivel=0; }
             }
             
 
@@ -429,6 +471,24 @@ validarCompuesto(){
 
 calcularPuntaje(){
     for(let i = 1; i < this.nivel;i++){
+        if(i<4){
+            this.puntaje += 6;
+        }if(i>3&&i<7){
+            this.puntaje += 10;
+        }if(i >6){
+            this.puntaje += 15;
+        }
+    }
+
+    if(this.nivel>9){
+        this.puntaje += 7;
+    }
+
+    this.puntaje = this.puntaje-(this.consultas+((this.cantidadDeComPeligrosos-1)*15));
+}
+
+calcularPuntajePorTiempo(){
+    for(let i = 1; i < this.nivel-1;i++){
         if(i<4){
             this.puntaje += 6;
         }if(i>3&&i<7){
