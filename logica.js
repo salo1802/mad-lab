@@ -473,16 +473,16 @@ validarCompuesto(){
 calcularPuntaje(){
     for(let i = 1; i < this.nivel;i++){
         if(i<4){
-            this.puntaje += 6;
+            this.puntaje += 12;
         }if(i>3&&i<7){
-            this.puntaje += 10;
+            this.puntaje += 20;
         }if(i >6){
-            this.puntaje += 15;
+            this.puntaje += 30;
         }
     }
 
     if(this.nivel>9){
-        this.puntaje += 7;
+        this.puntaje += 14;
     }
 
     this.puntaje = this.puntaje-(this.consultas+((this.cantidadDeComPeligrosos-1)*15));
@@ -504,7 +504,7 @@ calcularPuntajePorTiempo(){
     }
 
     this.puntaje = this.puntaje-(this.consultas+((this.cantidadDeComPeligrosos-1)*15));
-    this.puntaje = this.puntaje;
+    
 
     if(this.puntaje <0){this.puntaje=0;}
 }

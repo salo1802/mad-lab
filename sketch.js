@@ -52,7 +52,7 @@ function draw() {
       app.pantalla3.resize(1280,720);
       app.image(pantalla3,640,370);
       app.fill(0);
-      app.text(puntaje,640,355)
+      app.text(puntaje,650,355)
     break;
   }
   
