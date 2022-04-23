@@ -80,9 +80,9 @@ logicDraw(){
         
         this.tutorial = false;
         if(this.nivel == 0){
-            this.profesor.setFrases("Empezemos con\nalgo sencillo\ntrata de hacer\nagua(H2O)");
+            this.profesor.setFrases("Empecemos con\nalgo sencillo\ntrata de hacer\nagua(H2O)");
         }if(this.nivel == -1){
-            this.profesor.setFrases("Aqui estan las\nformulas de los\ncompuestos que\napareceran");
+            this.profesor.setFrases("Aquí están las\nfórmulas de los\ncompuestos que\naparecerán");
         }else{
             this.profesor.setFrases(this.profesor.getFrases());
         }
@@ -143,7 +143,7 @@ logicDraw(){
     
     if(this.tutorial ==false&&this.nivel>-1){
         this.nombrePantalla = this.compuestoPedido.replace('\n'," ");
-        fill(255);
+        fill(236,253,18);
         textSize(14);
         text(this.nombrePantalla,700,90);
     }
@@ -491,19 +491,20 @@ calcularPuntaje(){
 calcularPuntajePorTiempo(){
     for(let i = 1; i < this.nivel-1;i++){
         if(i<4){
-            this.puntaje += 6;
+            this.puntaje += 12;
         }if(i>3&&i<7){
-            this.puntaje += 10;
+            this.puntaje += 20;
         }if(i >6){
-            this.puntaje += 15;
+            this.puntaje += 30;
         }
     }
 
     if(this.nivel>9){
-        this.puntaje += 7;
+        this.puntaje += 14;
     }
 
     this.puntaje = this.puntaje-(this.consultas+((this.cantidadDeComPeligrosos-1)*15));
+    this.puntaje = this.puntaje;
 
     if(this.puntaje <0){this.puntaje=0;}
 }
