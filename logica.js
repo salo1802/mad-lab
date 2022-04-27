@@ -486,6 +486,7 @@ calcularPuntaje(){
     }
 
     this.puntaje = this.puntaje-(this.consultas+((this.cantidadDeComPeligrosos-1)*15));
+    if(this.puntaje <0){this.puntaje=0;}
 }
 
 calcularPuntajePorTiempo(){
